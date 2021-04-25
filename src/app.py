@@ -4,12 +4,14 @@ from werkzeug.datastructures import  FileStorage
 import os
 from utils.allowed_files import allowed_file
 from routes.clear_videos import clear_videos
+from routes.list_videos import list_videos
 
 app = Flask(__name__, static_folder="static")
 app.secret_key = "secret key"
 app.config["UPLOAD_FOLDER"] = "static/uploads/"
 
 app.add_url_rule('/videos/clear', view_func=clear_videos)
+app.add_url_rule('/videos/list', view_func=list_videos)
 
 @app.route("/")
 def upload_file_page():
