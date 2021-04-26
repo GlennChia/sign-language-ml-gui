@@ -59,3 +59,22 @@ First set up the python environment
 
 - `video` used to display video in `html`
 - Actual video added in the `static` directory
+
+# 5. Bug fixes
+
+## 5.1 Installing Torch
+
+Error: torch-1.8.1+cpu-cp38-cp38-win_amd64.whl is not a supported wheel on this platform.
+
+Reference links:
+
+- [Recommends checking whether python is 32 or 64 bits](https://discuss.pytorch.org/t/windows-not-a-supported-wheel-on-this-platform/17108)
+  ```bash
+  python -c "import struct;print( 8 * struct.calcsize('P'))"
+  ```
+- [Recommends downloading the .whl file and pip installing it](https://github.com/pytorch/pytorch/issues/10443)
+
+Summary
+
+- Ensure Python 3.8.6, 64-bit is installed
+- Visit [PyTorch official website](https://pytorch.org/), configure the machine details, and run the generated command.
