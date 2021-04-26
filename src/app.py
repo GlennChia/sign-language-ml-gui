@@ -5,6 +5,7 @@ import os
 from utils.allowed_files import allowed_file
 from routes.clear_videos import clear_videos
 from routes.list_videos import list_videos
+from services.get_prediction import get_prediction
 
 app = Flask(__name__, static_folder="static")
 app.secret_key = "secret key"
@@ -33,8 +34,17 @@ def upload_file():
       os.mkdir(app.config["UPLOAD_FOLDER"])
     filename = secure_filename(file.filename)
     file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-    flash("Original label: ")
-    flash("Predicted label: ")
+    video_name = filename[:-4] # exclude .mp4
+    video_path = "./static/uploads/{}".format(filename)
+    model_path = "./models/2.pt"
+    test_label_path = "./data/test.csv"
+    label_meta_path = "./data/filtered_ClassId.csv"
+    ground_truth, output_label = get_prediction(video_name, video_path, model_path, test_label_path, label_meta_path)
+    if ground_truth:
+      flash("Ground truth: {}".format(ground_truth))
+    else:
+      flash("This uploaded video was not from the dataset")
+    flash("Predicted label: {}".format(output_label))
     return render_template("index.html", filename="uploads/" + filename)
   else:
     flash("Allowed image types are -> mp4")
