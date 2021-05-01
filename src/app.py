@@ -36,7 +36,7 @@ def upload_file():
     file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
     video_name = filename[:-4] # exclude .mp4
     video_path = "./static/uploads/{}".format(filename)
-    model_path = "./models/2.pt"
+    model_path = "./models/8-checkpoint.pt"
     test_label_path = "./data/test.csv"
     label_meta_path = "./data/filtered_ClassId.csv"
     ground_truth, output_label = get_prediction(video_name, video_path, model_path, test_label_path, label_meta_path)
